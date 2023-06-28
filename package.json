@@ -6,13 +6,18 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "webpack",
-        "watch": "webpack --watch"
+        "watch": "webpack --watch",
+        "comp-sass": "sass src/custom.scss:dist/custom-bootstrap.css"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "sass": "^1.63.6",
         "webpack": "^5.88.1",
         "webpack-cli": "^5.1.4"
+    },
+    "dependencies": {
+        "bootstrap": "^5.3.0"
     }
 }
