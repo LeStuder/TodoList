@@ -5,9 +5,44 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>myPlanner</title>
         <link rel="stylesheet" href="./css/custom-bootstrap.css" />
+        <link rel="stylesheet" href="./css/styles.css" />
+        <script src="https://kit.fontawesome.com/b05bed166d.js" crossorigin="anonymous"></script>
     </head>
-    <body>
-        <div class="text-secondary">Test</div>
+    <body class="vh-100">
+        <div class="container-fluid h-100 p-0">
+            <div class="d-flex flex-column h-100">
+                <nav class="nav-bar bg-primary">
+                    <div class="d-flex justify-content-between py-4">
+                        <div id="nav-left" class="d-flex align-items-center">
+                            <i class="fa fa-lg fa-bars ms-2 px-4"></i>
+                            <i class="fa fa-lg fa-house px-4"></i>
+                        </div>
+                        <div id="nav-right" class="d-flex align-items-center">
+                            <i class="fa fa-lg fa-plus px-4"></i>
+                            <i class="fa fa-lg fa-bell px-4"></i>
+                            <i class="fa fa-lg fa-gear px-4"></i>
+                        </div>
+                    </div>
+                </nav>
+                <div class="d-sm-flex flex-grow-1">
+                    <div class="col-sm-4 col-md-3 col-xl-2 py-5 bg-light" id="sidebar">
+                        <div class="mx-4 py-2 px-2 row bg-light-shading">
+                            <div class="col-2 px-0"><i class="fas fa-lg fa-stopwatch"></i></div>
+                            <span class="col-10">Today</span>
+                        </div>
+                        <div class="mx-4 py-2 px-2 row bg-light-shading">
+                            <div class="col-2 px-0"><i class="fas fa-lg fa-clock"></i></div>
+                            <span class="col-10">Tomorrow</span>
+                        </div>
+                        <div class="mx-4 py-2 px-2 row bg-light-shading">
+                            <div class="col-2 px-0"><i class="fas fa-lg fa-calendar-alt"></i></div>
+                            <span class="col-10">Future</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-8 col-md-9 col-xl-10 bg-secondary px-4">test</div>
+                </div>
+            </div>
+        </div>
         <script src="./js/main.js"></script>
     </body>
 </html>
