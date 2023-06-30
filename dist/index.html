@@ -25,21 +25,55 @@
                     </div>
                 </nav>
                 <div class="d-sm-flex flex-grow-1">
-                    <div class="col-sm-4 col-md-3 col-xl-2 py-5 bg-light" id="sidebar">
-                        <div class="mx-4 py-2 px-2 row bg-light-shading">
-                            <div class="col-2 px-0"><i class="fas fa-lg fa-stopwatch"></i></div>
-                            <span class="col-10">Today</span>
+                    <div class="col-sm-5 col-md-4 col-xl-3 py-5 bg-light" id="sidebar">
+                        <div class="d-grid gap-1 col-10 mx-auto">
+                            <button type="button" class="btn btn-danger sidebar-btn">
+                                <div class="row">
+                                    <div class="col-2"><i class="fas fa-lg fa-stopwatch"></i></div>
+                                    <div class="col-10"><span>Today</span></div>
+                                </div>
+                            </button>
+                            <button type="button" class="btn btn-danger sidebar-btn">
+                                <div class="row">
+                                    <div class="col-2"><i class="fas fa-lg fa-clock"></i></div>
+                                    <div class="col-10"><span>Tomorrow</span></div>
+                                </div>
+                            </button>
+                            <button type="button" class="btn btn-danger sidebar-btn">
+                                <div class="row">
+                                    <div class="col-2"><i class="fas fa-lg fa-calendar-alt"></i></div>
+                                    <div class="col-10"><span>Future</span></div>
+                                </div>
+                            </button>
                         </div>
-                        <div class="mx-4 py-2 px-2 row bg-light-shading">
-                            <div class="col-2 px-0"><i class="fas fa-lg fa-clock"></i></div>
-                            <span class="col-10">Tomorrow</span>
-                        </div>
-                        <div class="mx-4 py-2 px-2 row bg-light-shading">
-                            <div class="col-2 px-0"><i class="fas fa-lg fa-calendar-alt"></i></div>
-                            <span class="col-10">Future</span>
+                        <div class="mx-4 mt-4 py-1 px-2 row bg-light-shading">Projects</div>
+                    </div>
+                    <div class="col-sm-7 col-md-8 col-xl-9 bg-white">
+                        <div class="col-md-8 col-11 m-auto mt-5">
+                            <h4 class="m-0">Private</h4>
+                            <div class="border-top mt-2 mb-3"></div>
+                            <div class="task-container mt-2 media d-flex">
+                                <input
+                                    type="checkbox"
+                                    class="form-check-input align-self-start mt-2"
+                                    id="task-1-checkbox"
+                                />
+                                <div class="media-body ms-3 d-flex w-100 justify-content-between">
+                                    <div>
+                                        <h4>Title</h4>
+                                        <div>Date</div>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-outline-info">Info</button>
+                                        <button type="button" class="btn btn-outline-danger">
+                                            <i class="fa fa-pen-to-square"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border-top mt-2"></div>
                         </div>
                     </div>
-                    <div class="col-sm-8 col-md-9 col-xl-10 bg-secondary px-4">test</div>
                 </div>
             </div>
         </div>
