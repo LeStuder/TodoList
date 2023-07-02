@@ -36,3 +36,12 @@ dataStructurer:
 import domCreator from "./domCreator.js";
 
 domCreator.drawProjects([{ name: "Private" }, { name: "Work" }]);
+let allTasks = [
+    { id: 1, title: "Create the first Task", description: "This task is meant to be shown as the first test-task" },
+    { id: 2, title: "Create the second Task", description: "This task is meant to be shown as the second test-task" },
+];
+
+//initial draw
+for (let i in allTasks) {
+    domCreator.drawTask(allTasks[i]);
+}
