@@ -7,7 +7,7 @@
         "watch": "npm-run-all --parallel watch-webpack watch-sass",
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "webpack && sass src/custom.scss:dist/css/custom-bootstrap.css",
-        "watch-webpack": "webpack --watch",
+        "watch-webpack": "webpack --watch --mode=development",
         "watch-sass": "sass --watch src/custom.scss:dist/css/custom-bootstrap.css"
     },
     "keywords": [],
