@@ -155,13 +155,14 @@ const createTaskInputElement = function (
 
     let inputProject = document.createElement("select");
     inputProject.classList.add("form-select");
-    inputProject.value = taskObj.project;
     let projectsArr = ["Project 1", "Project 2"]; //TODO --> Use a getter for the projects arr
     for (let i in projectsArr) {
         let option = document.createElement("option");
         option.textContent = projectsArr[i];
+        option.value = projectsArr[i];
         inputProject.appendChild(option);
     }
+    inputProject.value = taskObj.project;
 
     let inputDate = document.createElement("input");
     inputDate.type = "date";
