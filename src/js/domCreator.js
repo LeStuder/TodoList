@@ -95,6 +95,10 @@ const drawTask = function (task) {
 
     //Add delete button, with event listener including are-you-sure-modal
 
+    let divider = document.createElement("div");
+    divider.classList.add("border-top");
+    divider.classList.add("mt-2");
+
     editButton.appendChild(editIcon);
     buttonContainer.appendChild(editButton);
     textBody.appendChild(title);
@@ -104,6 +108,7 @@ const drawTask = function (task) {
     mediaContainer.appendChild(checkbox);
     mediaContainer.appendChild(mediaBody);
     tasksContainer.appendChild(mediaContainer);
+    tasksContainer.appendChild(divider);
 };
 
 export default {
