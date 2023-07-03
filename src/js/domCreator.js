@@ -1,55 +1,55 @@
 /**
 
-drawNewTaskButton
-
-drawNewTaskInput
+createTaskElementInput
 
 drawNewTaskModal
 
-drawTaskEdit
+*/
 
- */
-
-//draws the projects in the sidebar.
-const drawProjects = function (projectsArr) {
-    let projectsSidebarContainer = document.getElementById("projects-sidebar-container");
-    for (let i in projectsArr) {
-        let button = document.createElement("button");
-        button.type = "button";
-        button.value = projectsArr[i].name;
-        button.classList.add("btn");
-        button.classList.add("btn-light");
-        button.classList.add("sidebar-btn");
-
-        //event listener
-
-        let rowContainer = document.createElement("div");
-        rowContainer.classList.add("row");
-
-        let iconContainer = document.createElement("div");
-        iconContainer.classList.add("col-1");
-
-        let icon = document.createElement("i");
-        icon.classList.add("far");
-        icon.classList.add("fa-sm");
-        icon.classList.add("fa-circle");
-
-        let textContainer = document.createElement("div");
-        textContainer.classList.add("col-auto");
-        textContainer.textContent = projectsArr[i].name;
-
-        iconContainer.appendChild(icon);
-        rowContainer.appendChild(iconContainer);
-        rowContainer.appendChild(textContainer);
-        button.appendChild(rowContainer);
-        projectsSidebarContainer.appendChild(button);
-    }
+const drawToTasklist = function (domElement) {
+    let tasksContainer = document.getElementById("tasks-container");
+    tasksContainer.appendChild(domElement);
 };
 
-const drawTask = function (task) {
-    let tasksContainer = document.getElementById("tasks-container");
+const drawToProjectSidebar = function (domElement) {
+    let projectsSidebarContainer = document.getElementById("projects-sidebar-container");
+    projectsSidebarContainer.appendChild(domElement);
+};
+
+const createProject = function (project) {
+    let button = document.createElement("button");
+    button.type = "button";
+    button.value = project.name;
+    button.classList.add("btn");
+    button.classList.add("btn-light");
+    button.classList.add("sidebar-btn");
+
+    //event listener
+
+    let rowContainer = document.createElement("div");
+    rowContainer.classList.add("row");
+
+    let iconContainer = document.createElement("div");
+    iconContainer.classList.add("col-1");
+
+    let icon = document.createElement("i");
+    icon.classList.add("far");
+    icon.classList.add("fa-sm");
+    icon.classList.add("fa-circle");
+
+    let textContainer = document.createElement("div");
+    textContainer.classList.add("col-auto");
+    textContainer.textContent = project.name;
+
+    iconContainer.appendChild(icon);
+    rowContainer.appendChild(iconContainer);
+    rowContainer.appendChild(textContainer);
+    button.appendChild(rowContainer);
+    return button;
+};
+
+const createTaskElement = function (task) {
     let mediaContainer = document.createElement("div");
-    mediaContainer.classList.add("mt-2");
     mediaContainer.classList.add("media");
     mediaContainer.classList.add("d-flex");
 
@@ -95,10 +95,6 @@ const drawTask = function (task) {
 
     //Add delete button, with event listener including are-you-sure-modal
 
-    let divider = document.createElement("div");
-    divider.classList.add("border-top");
-    divider.classList.add("mt-2");
-
     editButton.appendChild(editIcon);
     buttonContainer.appendChild(editButton);
     textBody.appendChild(title);
@@ -107,11 +103,45 @@ const drawTask = function (task) {
     mediaBody.appendChild(buttonContainer);
     mediaContainer.appendChild(checkbox);
     mediaContainer.appendChild(mediaBody);
-    tasksContainer.appendChild(mediaContainer);
-    tasksContainer.appendChild(divider);
+
+    return mediaContainer;
+};
+
+const createDividerElement = function () {
+    let divider = document.createElement("div");
+    divider.classList.add("border-top");
+    divider.classList.add("my-2");
+
+    return divider;
+};
+
+const createNewTaskButtonElement = function () {
+    let tasksContainer = document.getElementById("tasks-container");
+
+    let container = document.createElement("div");
+    container.classList.add("container-fluid");
+
+    let row = document.createElement("div");
+    row.classList.add("row");
+
+    let button = document.createElement("button");
+    button.type = "button";
+    button.textContent = "Add new task";
+    button.classList.add("btn");
+    button.classList.add("btn-block");
+    button.classList.add("btn-light");
+
+    row.appendChild(button);
+    container.appendChild(row);
+
+    return container;
 };
 
 export default {
-    drawProjects,
-    drawTask,
+    drawToTasklist,
+    drawToProjectSidebar,
+    createProject,
+    createTaskElement,
+    createNewTaskButtonElement,
+    createDividerElement,
 };
