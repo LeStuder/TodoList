@@ -1,9 +1,15 @@
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
 
+//use this part to edit maps
 $custom-colors: (
     "custom2": orange,
 );
 $theme-colors: map-merge($theme-colors, $custom-colors);
+
+//use this part to edit like normal css
+.sidebar-btn {
+    text-align: left !important;
+}
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";

@@ -20,11 +20,9 @@ const createProject = function (project) {
     let button = document.createElement("button");
     button.type = "button";
     button.value = project.name;
-    button.classList.add("btn");
-    button.classList.add("btn-light");
-    button.classList.add("sidebar-btn");
+    button.classList.add("btn", "btn-light", "sidebar-btn");
 
-    //event listener
+    //TODO --> event listener
 
     let rowContainer = document.createElement("div");
     rowContainer.classList.add("row");
@@ -33,9 +31,7 @@ const createProject = function (project) {
     iconContainer.classList.add("col-1");
 
     let icon = document.createElement("i");
-    icon.classList.add("far");
-    icon.classList.add("fa-sm");
-    icon.classList.add("fa-circle");
+    icon.classList.add("far", "fa-sm", "fa-circle");
 
     let textContainer = document.createElement("div");
     textContainer.classList.add("col-auto");
@@ -50,25 +46,18 @@ const createProject = function (project) {
 
 const createTaskElement = function (task) {
     let mediaContainer = document.createElement("div");
-    mediaContainer.classList.add("media");
-    mediaContainer.classList.add("d-flex");
+    mediaContainer.classList.add("media", "d-flex");
 
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.id = `checkbox-${task.id}`;
     checkbox.value = task.id;
-    checkbox.classList.add("form-check-input");
-    checkbox.classList.add("align-self-start");
-    checkbox.classList.add("mt-2");
+    checkbox.classList.add("form-check-input", "align-self-start", "mt-2");
 
-    //event listener
+    //TODO --> event listener
 
     let mediaBody = document.createElement("div");
-    mediaBody.classList.add("media-body");
-    mediaBody.classList.add("ms-3");
-    mediaBody.classList.add("d-flex");
-    mediaBody.classList.add("w-100");
-    mediaBody.classList.add("justify-content-between");
+    mediaBody.classList.add("media-body", "ms-3", "d-flex", "w-100", "justify-content-between");
 
     let textBody = document.createElement("div");
 
@@ -84,16 +73,14 @@ const createTaskElement = function (task) {
     editButton.type = "button";
     editButton.id = `edit-button-${task.id}`;
     editButton.value = task.id;
-    editButton.classList.add("btn");
-    editButton.classList.add("btn-light");
+    editButton.classList.add("btn", "btn-light");
 
-    //event listener
+    //TODO --> event listener
 
     let editIcon = document.createElement("i");
-    editIcon.classList.add("fa");
-    editIcon.classList.add("fa-pen-to-square");
+    editIcon.classList.add("fa", "fa-pen-to-square");
 
-    //Add delete button, with event listener including are-you-sure-modal
+    //TODO --> Add delete button, with event listener including are-you-sure-modal
 
     editButton.appendChild(editIcon);
     buttonContainer.appendChild(editButton);
@@ -109,8 +96,7 @@ const createTaskElement = function (task) {
 
 const createDividerElement = function () {
     let divider = document.createElement("div");
-    divider.classList.add("border-top");
-    divider.classList.add("my-2");
+    divider.classList.add("border-top", "my-2");
 
     return divider;
 };
@@ -127,14 +113,81 @@ const createNewTaskButtonElement = function () {
     let button = document.createElement("button");
     button.type = "button";
     button.textContent = "Add new task";
-    button.classList.add("btn");
-    button.classList.add("btn-block");
-    button.classList.add("btn-light");
+    button.classList.add("btn", "btn-block", "btn-light");
 
     row.appendChild(button);
     container.appendChild(row);
 
     return container;
+};
+
+const createTaskInputElement = function (
+    taskObj = { title: "", description: "", project: "", date: "", id: Math.random(), done: false }
+    //TODO --> replace Math.random with incrementer-function
+) {
+    const createInputGroup = function (label, inputElement) {
+        let inputGroup = document.createElement("div");
+        inputGroup.classList.add("input-group", "mb-2");
+
+        let spanLabel = document.createElement("span");
+        spanLabel.classList.add("input-group-text");
+        spanLabel.textContent = label;
+
+        inputGroup.appendChild(spanLabel);
+        inputGroup.appendChild(inputElement);
+
+        return inputGroup;
+    };
+
+    let taskInputContainer = document.createElement("div");
+    taskInputContainer.id = "task-input-container";
+    taskInputContainer.classList.add("container-fluid");
+
+    let inputTitle = document.createElement("input");
+    inputTitle.type = "text";
+    inputTitle.value = taskObj.title;
+    inputTitle.classList.add("form-control");
+
+    let inputDescription = document.createElement("textarea");
+    inputDescription.rows = "4";
+    inputDescription.value = taskObj.description;
+    inputDescription.classList.add("form-control");
+
+    let inputProject = document.createElement("select");
+    inputProject.classList.add("form-select");
+    inputProject.value = taskObj.project;
+    let projectsArr = ["Project 1", "Project 2"]; //TODO --> Use a getter for the projects arr
+    for (let i in projectsArr) {
+        let option = document.createElement("option");
+        option.textContent = projectsArr[i];
+        inputProject.appendChild(option);
+    }
+
+    let inputDate = document.createElement("input");
+    inputDate.type = "date";
+    inputDate.value = taskObj.date;
+    inputDate.classList.add("form-control");
+
+    let saveButtonContainer = document.createElement("div");
+    saveButtonContainer.classList.add("container-fluid");
+
+    let saveButtonRow = document.createElement("div");
+    saveButtonRow.classList.add("row");
+
+    let saveButton = document.createElement("button");
+    saveButton.type = "button";
+    saveButton.textContent = "Save";
+    saveButton.classList.add("btn", "btn-primary", "btn-block");
+    saveButtonRow.appendChild(saveButton);
+    saveButtonContainer.appendChild(saveButtonRow);
+
+    taskInputContainer.appendChild(createInputGroup("Title", inputTitle));
+    taskInputContainer.appendChild(createInputGroup("Description", inputDescription));
+    taskInputContainer.appendChild(createInputGroup("Project", inputProject));
+    taskInputContainer.appendChild(createInputGroup("Due Date", inputDate));
+    taskInputContainer.appendChild(saveButtonContainer);
+
+    return taskInputContainer;
 };
 
 export default {
@@ -144,4 +197,5 @@ export default {
     createTaskElement,
     createNewTaskButtonElement,
     createDividerElement,
+    createTaskInputElement,
 };

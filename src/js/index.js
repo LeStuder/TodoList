@@ -56,3 +56,6 @@ for (let i in allTasks) {
 
 const newTaskButton = domCreator.createNewTaskButtonElement();
 domCreator.drawToTasklist(newTaskButton);
+
+const taskInputElement = domCreator.createTaskInputElement();
+domCreator.drawToTasklist(taskInputElement);
