@@ -51,7 +51,7 @@ const createTaskElement = function (task) {
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.id = `checkbox-${task.id}`;
-    checkbox.value = task.id;
+    checkbox.value = task.id; //TODO --> make sure to use something else than task.id
     checkbox.classList.add("form-check-input", "align-self-start", "mt-2");
 
     //TODO --> event listener

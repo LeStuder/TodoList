@@ -33,29 +33,31 @@ dataStructurer:
         This takes a Object from the Data Loader and returns a filtered Object to the Creator
  */
 
-import domCreator from "./domCreator.js";
+//FOR TESTING PURPOSES
+// import dataStorage from "./dataStorage";
 
-let allProjects = [{ name: "Private" }, { name: "Work" }];
-let allTasks = [
-    { id: 1, title: "Create the first Task", description: "This task is meant to be shown as the first test-task" },
-    { id: 2, title: "Create the second Task", description: "This task is meant to be shown as the second test-task" },
-];
+// dataStorage._load("tasks");
 
-//initial draw
-for (let i in allProjects) {
-    let project = domCreator.createProject(allProjects[i]);
-    domCreator.drawToProjectSidebar(project);
-}
+// dataStorage._save(
+//     "tasks",
+//     JSON.stringify({
+//         1: {
+//             title: "task one",
+//             description: "description of task one",
+//             project: "Project 1",
+//             date: "2000-01-01",
+//             done: false,
+//         },
+//         2: {
+//             title: "task two",
+//             description: "description of task two",
+//             project: "Project 2",
+//             date: "2000-01-01",
+//             done: false,
+//         },
+//     })
+// );
 
-for (let i in allTasks) {
-    const taskElem = domCreator.createTaskElement(allTasks[i]);
-    const divider = domCreator.createDividerElement();
-    domCreator.drawToTasklist(taskElem);
-    domCreator.drawToTasklist(divider);
-}
+import coordinator from "./coordinator";
 
-const newTaskButton = domCreator.createNewTaskButtonElement();
-domCreator.drawToTasklist(newTaskButton);
-
-const taskInputElement = domCreator.createTaskInputElement();
-domCreator.drawToTasklist(taskInputElement);
+coordinator.coordinateInitialLoad();
