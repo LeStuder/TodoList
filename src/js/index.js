@@ -50,7 +50,7 @@ const testDataSetup = function () {
             title: "task two",
             description: "description of task two",
             project: "Project 2",
-            date: "2000-01-01",
+            date: "2000-03-03",
             done: false,
         },
     });
@@ -59,6 +59,13 @@ const testDataSetup = function () {
 };
 
 testDataSetup();
+dataStorage.addTask({
+    title: "task three",
+    description: "description of task three",
+    project: "Project 2",
+    date: "2000-03-03",
+    done: false,
+});
 // const test = dataStorage.getAllTasks();
 //end testing
 

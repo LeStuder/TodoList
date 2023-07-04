@@ -38,9 +38,27 @@ const getAllProjects = function () {
     return _load("projects");
 };
 
+const setAllTasks = function (allTasks) {
+    _save("tasks", allTasks);
+};
+
+const addTask = function (taskObj) {
+    const allTasks = getAllTasks();
+    const _assignID = function () {
+        const allTaskKeys = Object.keys(allTasks);
+        let lastUsedKey = parseInt(allTaskKeys[allTaskKeys.length - 1]);
+        return lastUsedKey + 1;
+    };
+
+    const id = _assignID();
+    allTasks[id] = taskObj;
+    setAllTasks(allTasks);
+};
+
 export default {
     // _load,
     _save,
     getAllTasks,
     getAllProjects,
+    addTask,
 };
