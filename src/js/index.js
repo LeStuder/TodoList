@@ -54,7 +54,11 @@ const testDataSetup = function () {
             done: false,
         },
     });
+
+    dataStorage._save("projects", ["Private", "Work"]);
 };
+
+testDataSetup();
 // const test = dataStorage.getAllTasks();
 //end testing
 

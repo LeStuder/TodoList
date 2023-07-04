@@ -21,7 +21,7 @@ const _load = function (key) {
     const data = localStorage.getItem(key);
 
     if (data === null) {
-        return {};
+        return [];
     } else {
         return JSON.parse(data);
     }
@@ -37,14 +37,10 @@ const getAllTasks = function () {
 const getAllProjects = function () {
     return _load("projects");
 };
-const getAllParameters = function () {
-    return _load("parameters");
-};
 
 export default {
     // _load,
     _save,
     getAllTasks,
     getAllProjects,
-    getAllParameters,
 };

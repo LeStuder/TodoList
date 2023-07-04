@@ -6,6 +6,8 @@ drawNewTaskModal
 
 */
 
+import dataStorage from "./dataStorage";
+
 const drawToTasklist = function (domElement) {
     let tasksContainer = document.getElementById("tasks-container");
     tasksContainer.appendChild(domElement);
@@ -19,7 +21,7 @@ const drawToProjectSidebar = function (domElement) {
 const createProject = function (project) {
     let button = document.createElement("button");
     button.type = "button";
-    button.value = project.name;
+    button.value = project;
     button.classList.add("btn", "btn-light", "sidebar-btn");
 
     //TODO --> event listener
@@ -35,7 +37,7 @@ const createProject = function (project) {
 
     let textContainer = document.createElement("div");
     textContainer.classList.add("col-auto");
-    textContainer.textContent = project.name;
+    textContainer.textContent = project;
 
     iconContainer.appendChild(icon);
     rowContainer.appendChild(iconContainer);
@@ -155,7 +157,7 @@ const createTaskInputElement = function (
 
     let inputProject = document.createElement("select");
     inputProject.classList.add("form-select");
-    let projectsArr = ["Project 1", "Project 2"]; //TODO --> Use a getter for the projects arr
+    let projectsArr = dataStorage.getAllProjects(); //TODO --> Use a getter for the projects arr
     for (let i in projectsArr) {
         let option = document.createElement("option");
         option.textContent = projectsArr[i];

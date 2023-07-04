@@ -1,16 +1,10 @@
+import dataStorage from "./dataStorage.js";
 import domCreator from "./domCreator.js";
 
 const coordinateInitialLoad = function () {
     //TODO --> Load allProjects and allTasks from Storage
-    let allProjects = [{ name: "Private" }, { name: "Work" }];
-    let allTasks = [
-        { id: 1, title: "Create the first Task", description: "This task is meant to be shown as the first test-task" },
-        {
-            id: 2,
-            title: "Create the second Task",
-            description: "This task is meant to be shown as the second test-task",
-        },
-    ];
+    let allProjects = dataStorage.getAllProjects();
+    let allTasks = dataStorage.getAllTasks();
 
     //TODO --> Later on use a coodinator function that updates the ProjectsSidebar
     for (let i in allProjects) {
