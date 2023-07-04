@@ -18,13 +18,7 @@ editProject
  */
 
 const _load = function (key) {
-    const data = localStorage.getItem(key);
-
-    if (data === null) {
-        return [];
-    } else {
-        return JSON.parse(data);
-    }
+    return localStorage.getItem(key);
 };
 
 const _save = function (key, dataObj) {
@@ -32,14 +26,30 @@ const _save = function (key, dataObj) {
 };
 
 const getAllTasks = function () {
-    return _load("tasks");
+    const allTasks = _load("tasks");
+
+    if (allTasks === null) {
+        return {};
+    } else {
+        return JSON.parse(allTasks);
+    }
 };
 const getAllProjects = function () {
-    return _load("projects");
+    const allProjects = _load("projects");
+
+    if (allProjects === null) {
+        return [];
+    } else {
+        return JSON.parse(allProjects);
+    }
 };
 
-const setAllTasks = function (allTasks) {
+const _setAllTasks = function (allTasks) {
     _save("tasks", allTasks);
+};
+
+const _setAllProjects = function (allProjects) {
+    _save("projects", allProjects);
 };
 
 const addTask = function (taskObj) {
@@ -52,7 +62,13 @@ const addTask = function (taskObj) {
 
     const id = _assignID();
     allTasks[id] = taskObj;
-    setAllTasks(allTasks);
+    _setAllTasks(allTasks);
+};
+
+const addProject = function (name) {
+    const allProjects = getAllProjects();
+    allProjects.push(name);
+    _setAllProjects(allProjects);
 };
 
 export default {
@@ -61,4 +77,5 @@ export default {
     getAllTasks,
     getAllProjects,
     addTask,
+    addProject,
 };

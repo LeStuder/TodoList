@@ -66,7 +66,13 @@ dataStorage.addTask({
     date: "2000-03-03",
     done: false,
 });
+dataStorage.addProject("Project 3");
 // const test = dataStorage.getAllTasks();
 //end testing
 
 coordinator.coordinateInitialLoad();
+
+//testing
+// const taskInputElement = domCreator.createTaskInputElement();
+// domCreator.drawToTasklist(taskInputElement);
+//end testing
