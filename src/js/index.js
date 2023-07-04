@@ -33,31 +33,29 @@ dataStructurer:
         This takes a Object from the Data Loader and returns a filtered Object to the Creator
  */
 
-//FOR TESTING PURPOSES
-// import dataStorage from "./dataStorage";
-
-// dataStorage._load("tasks");
-
-// dataStorage._save(
-//     "tasks",
-//     JSON.stringify({
-//         1: {
-//             title: "task one",
-//             description: "description of task one",
-//             project: "Project 1",
-//             date: "2000-01-01",
-//             done: false,
-//         },
-//         2: {
-//             title: "task two",
-//             description: "description of task two",
-//             project: "Project 2",
-//             date: "2000-01-01",
-//             done: false,
-//         },
-//     })
-// );
-
 import coordinator from "./coordinator";
+import dataStorage from "./dataStorage";
+
+//testing
+const testDataSetup = function () {
+    dataStorage._save("tasks", {
+        1: {
+            title: "task one",
+            description: "description of task one",
+            project: "Project 1",
+            date: "2000-01-01",
+            done: false,
+        },
+        2: {
+            title: "task two",
+            description: "description of task two",
+            project: "Project 2",
+            date: "2000-01-01",
+            done: false,
+        },
+    });
+};
+// const test = dataStorage.getAllTasks();
+//end testing
 
 coordinator.coordinateInitialLoad();

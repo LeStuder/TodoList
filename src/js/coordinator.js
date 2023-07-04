@@ -1,7 +1,5 @@
 import domCreator from "./domCreator.js";
 
-//initial draw
-
 const coordinateInitialLoad = function () {
     //TODO --> Load allProjects and allTasks from Storage
     let allProjects = [{ name: "Private" }, { name: "Work" }];
