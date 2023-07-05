@@ -35,44 +35,46 @@ dataStructurer:
 
 import coordinator from "./coordinator";
 import dataStorage from "./dataStorage";
+import domCreator from "./domCreator";
 
 //testing
 const testDataSetup = function () {
-    dataStorage._save("tasks", {
-        1: {
-            title: "task one",
-            description: "description of task one",
-            project: "Project 1",
-            date: "2000-01-01",
-            done: false,
-        },
-        2: {
-            title: "task two",
-            description: "description of task two",
-            project: "Project 2",
-            date: "2000-03-03",
-            done: false,
-        },
-    });
+    dataStorage.addProject("General");
+    dataStorage.addProject("Private");
+    dataStorage.addProject("Work");
 
-    dataStorage._save("projects", ["Private", "Work"]);
+    dataStorage.addTask({
+        title: "task one",
+        description: "description of task one",
+        project: 2,
+        date: "2000-01-01",
+        done: false,
+    });
+    dataStorage.addTask({
+        title: "task two",
+        description: "description of task two",
+        project: 3,
+        date: "2000-03-03",
+        done: false,
+    });
 };
 
 testDataSetup();
-dataStorage.addTask({
-    title: "task three",
-    description: "description of task three",
-    project: "Project 2",
-    date: "2000-03-03",
-    done: false,
-});
-dataStorage.addProject("Project 3");
-// const test = dataStorage.getAllTasks();
+// dataStorage.addTask({
+//     title: "task three",
+//     description: "description of task three",
+//     project: "Project 2",
+//     date: "2000-03-03",
+//     done: false,
+// });
+// dataStorage.addProject("Project 3");
+// dataStorage.deleteTask(1);
+// dataStorage.deleteProject(2);
 //end testing
 
 coordinator.coordinateInitialLoad();
 
 //testing
-// const taskInputElement = domCreator.createTaskInputElement();
-// domCreator.drawToTasklist(taskInputElement);
+const taskInputElement = domCreator.createTaskInputElement();
+domCreator.drawToTasklist(taskInputElement);
 //end testing

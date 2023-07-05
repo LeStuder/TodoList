@@ -1,28 +1,31 @@
 /**
-
+TODO:
 drawNewTaskModal
 
 */
 
 import dataStorage from "./dataStorage";
 
+//Add domElement to the Tasklist
 const drawToTasklist = function (domElement) {
     let tasksContainer = document.getElementById("tasks-container");
     tasksContainer.appendChild(domElement);
 };
 
+//add domElement to the Project Panel in the Sidebar
 const drawToProjectSidebar = function (domElement) {
     let projectsSidebarContainer = document.getElementById("projects-sidebar-container");
     projectsSidebarContainer.appendChild(domElement);
 };
 
+//returns a domElement based on the project-name string given as parameter
 const createProject = function (project) {
     let button = document.createElement("button");
     button.type = "button";
     button.value = project;
     button.classList.add("btn", "btn-light", "sidebar-btn");
 
-    //TODO --> event listener
+    //TODO --> add event listener
 
     let rowContainer = document.createElement("div");
     rowContainer.classList.add("row");
@@ -44,6 +47,7 @@ const createProject = function (project) {
     return button;
 };
 
+//returns a domElement based on the task object given as parameter
 const createTaskElement = function (task) {
     let mediaContainer = document.createElement("div");
     mediaContainer.classList.add("media", "d-flex");
@@ -54,7 +58,7 @@ const createTaskElement = function (task) {
     checkbox.value = task.id; //TODO --> make sure to use something else than task.id
     checkbox.classList.add("form-check-input", "align-self-start", "mt-2");
 
-    //TODO --> event listener
+    //TODO --> event listener when checkbox is checked or unchecked
 
     let mediaBody = document.createElement("div");
     mediaBody.classList.add("media-body", "ms-3", "d-flex", "w-100", "justify-content-between");
@@ -75,7 +79,7 @@ const createTaskElement = function (task) {
     editButton.value = task.id;
     editButton.classList.add("btn", "btn-light");
 
-    //TODO --> event listener
+    //TODO --> event listener when edit-button is clicked
 
     let editIcon = document.createElement("i");
     editIcon.classList.add("fa", "fa-pen-to-square");
@@ -94,6 +98,7 @@ const createTaskElement = function (task) {
     return mediaContainer;
 };
 
+//create diviser domElement for between the different tasks
 const createDividerElement = function () {
     let divider = document.createElement("div");
     divider.classList.add("border-top", "my-2");
@@ -101,6 +106,7 @@ const createDividerElement = function () {
     return divider;
 };
 
+//create domElement for the button to add a new tasks at the end of the tasklist
 const createNewTaskButtonElement = function () {
     let tasksContainer = document.getElementById("tasks-container");
 
@@ -155,11 +161,11 @@ const createTaskInputElement = function (
 
     let inputProject = document.createElement("select");
     inputProject.classList.add("form-select");
-    let projectsArr = dataStorage.getAllProjects(); //TODO --> Use a getter for the projects arr
-    for (let i in projectsArr) {
+    let allProjects = dataStorage.getAllProjects();
+    for (let i in allProjects) {
         let option = document.createElement("option");
-        option.textContent = projectsArr[i];
-        option.value = projectsArr[i];
+        option.textContent = allProjects[i];
+        option.value = i;
         inputProject.appendChild(option);
     }
     inputProject.value = taskObj.project;

@@ -1,9 +1,5 @@
 /**
 
-deleteTask
-
-deleteProject
-
 editTask
 
 editProject
@@ -12,34 +8,55 @@ editProject
 
  */
 
+import dataStructurer from "./dataStructurer";
+
 const _load = function (key) {
-    return localStorage.getItem(key);
+    const obj = localStorage.getItem(key);
+
+    if (obj === null) {
+        return {};
+    } else {
+        return JSON.parse(obj);
+    }
 };
 
 const _save = function (key, dataObj) {
     localStorage.setItem(key, JSON.stringify(dataObj));
 };
 
+const _assignUniqueID = function (type, obj) {
+    let allParameters = _getAllParameters();
+    if (!allParameters.lastUsedKey) {
+        allParameters.lastUsedKey = {};
+    }
+    if (!allParameters.lastUsedKey[type]) {
+        allParameters.lastUsedKey[type] = 0;
+    }
+    let newKey = null;
+    const allKeys = Object.keys(obj);
+    let lastUsedKey = allParameters.lastUsedKey[type];
+    if (Number.isInteger(allKeys[allKeys.length - 1])) {
+        lastUsedKey = Math.max(parseInt(allKeys[allKeys.length - 1]), allParameters.lastUsedKey[type]);
+    }
+    newKey = lastUsedKey + 1;
+    allParameters.lastUsedKey[type] = newKey;
+    _setAllParameters(allParameters);
+    return newKey;
+};
+
 const getAllTasks = function () {
-    const allTasks = _load("tasks");
-
-    if (allTasks === null) {
-        return {};
-    } else {
-        return JSON.parse(allTasks);
-    }
+    return _load("tasks");
 };
+
 const getAllProjects = function () {
-    const allProjects = _load("projects");
-
-    if (allProjects === null) {
-        return [];
-    } else {
-        return JSON.parse(allProjects);
-    }
+    return _load("projects");
 };
 
-const _setAllTasks = function (allTasks) {
+const _getAllParameters = function () {
+    return _load("parameters");
+};
+
+const setAllTasks = function (allTasks) {
     _save("tasks", allTasks);
 };
 
@@ -47,34 +64,51 @@ const _setAllProjects = function (allProjects) {
     _save("projects", allProjects);
 };
 
+const _setAllParameters = function (allParameters) {
+    _save("parameters", allParameters);
+};
+
 const addTask = function (taskObj) {
     const allTasks = getAllTasks();
-    const _assignID = function () {
-        const allTaskKeys = Object.keys(allTasks);
-        let lastUsedKey = parseInt(allTaskKeys[allTaskKeys.length - 1]);
-        return lastUsedKey + 1;
-    };
-
-    const id = _assignID();
+    const id = _assignUniqueID("tasks", allTasks);
     allTasks[id] = taskObj;
-    _setAllTasks(allTasks);
+    setAllTasks(allTasks);
 };
 
 const addProject = function (name) {
     const allProjects = getAllProjects();
-    if (allProjects.some((elem) => elem === name)) {
-        console.error("Project already exists");
+    const id = _assignUniqueID("projects", allProjects);
+    if (Object.values(allProjects).some((elem) => elem === name)) {
+        console.log("Project already exists");
     } else {
-        allProjects.push(name);
+        allProjects[id] = name;
         _setAllProjects(allProjects);
     }
 };
 
+const deleteTask = function (key) {
+    let allTasks = getAllTasks();
+    delete allTasks[key];
+    setAllTasks(allTasks);
+};
+
+const deleteProject = function (key) {
+    let allProjects = getAllProjects();
+    dataStructurer.removeProjectFromTasks(key);
+    delete allProjects[key];
+    _setAllProjects(allProjects);
+};
+
 export default {
     // _load,
-    _save,
+    // _save,
     getAllTasks,
     getAllProjects,
+    setAllTasks,
     addTask,
     addProject,
+    deleteTask,
+    deleteProject,
+    editTask,
+    editProject,
 };
