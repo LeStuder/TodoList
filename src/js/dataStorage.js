@@ -1,10 +1,5 @@
 /**
 
-addTask
-    _assignID
-
-addProject
-
 deleteTask
 
 deleteProject
@@ -67,8 +62,12 @@ const addTask = function (taskObj) {
 
 const addProject = function (name) {
     const allProjects = getAllProjects();
-    allProjects.push(name);
-    _setAllProjects(allProjects);
+    if (allProjects.some((elem) => elem === name)) {
+        console.error("Project already exists");
+    } else {
+        allProjects.push(name);
+        _setAllProjects(allProjects);
+    }
 };
 
 export default {
