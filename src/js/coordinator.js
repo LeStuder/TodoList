@@ -19,7 +19,7 @@ const coordinateInitialLoad = function () {
         domCreator.drawToTasklist(divider);
     }
 
-    const newTaskButton = domCreator.createNewTaskButtonElement();
+    const newTaskButton = domCreator.createNewTaskButtonTasklistElement();
     domCreator.drawToTasklist(newTaskButton);
 };
 

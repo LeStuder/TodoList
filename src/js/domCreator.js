@@ -5,6 +5,7 @@ drawNewTaskModal
 */
 
 import dataStorage from "./dataStorage";
+import eventCoordinator from "./eventCoordinator";
 
 //Add domElement to the Tasklist
 const drawToTasklist = function (domElement) {
@@ -107,9 +108,7 @@ const createDividerElement = function () {
 };
 
 //create domElement for the button to add a new tasks at the end of the tasklist
-const createNewTaskButtonElement = function () {
-    let tasksContainer = document.getElementById("tasks-container");
-
+const createNewTaskButtonTasklistElement = function () {
     let container = document.createElement("div");
     container.classList.add("container-fluid");
 
@@ -120,6 +119,10 @@ const createNewTaskButtonElement = function () {
     button.type = "button";
     button.textContent = "Add new task";
     button.classList.add("btn", "btn-block", "btn-light");
+
+    button.addEventListener("click", (event) => {
+        eventCoordinator.clickNewTaskButtonTasklistElement(event);
+    });
 
     row.appendChild(button);
     container.appendChild(row);
@@ -204,7 +207,7 @@ export default {
     drawToProjectSidebar,
     createProject,
     createTaskElement,
-    createNewTaskButtonElement,
+    createNewTaskButtonTasklistElement,
     createDividerElement,
     createTaskInputElement,
 };

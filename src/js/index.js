@@ -83,6 +83,6 @@ const testDataSetup = function () {
 coordinator.coordinateInitialLoad();
 
 //testing
-const taskInputElement = domCreator.createTaskInputElement();
-domCreator.drawToTasklist(taskInputElement);
+// const taskInputElement = domCreator.createTaskInputElement();
+// domCreator.drawToTasklist(taskInputElement);
 //end testing
