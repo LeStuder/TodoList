@@ -70,6 +70,14 @@ const testDataSetup = function () {
 // dataStorage.addProject("Project 3");
 // dataStorage.deleteTask(1);
 // dataStorage.deleteProject(2);
+// dataStorage.editProject(2, "Private");
+// dataStorage.editTask(2, {
+//     title: "task two",
+//     description: "description of task two with some edit",
+//     project: 3,
+//     date: "2000-03-03",
+//     done: false,
+// });
 //end testing
 
 coordinator.coordinateInitialLoad();

@@ -1,13 +1,3 @@
-/**
-
-editTask
-
-editProject
-
-
-
- */
-
 import dataStructurer from "./dataStructurer";
 
 const _load = function (key) {
@@ -56,7 +46,7 @@ const _getAllParameters = function () {
     return _load("parameters");
 };
 
-const setAllTasks = function (allTasks) {
+const _setAllTasks = function (allTasks) {
     _save("tasks", allTasks);
 };
 
@@ -68,11 +58,23 @@ const _setAllParameters = function (allParameters) {
     _save("parameters", allParameters);
 };
 
+const removeProjectFromTasks = function (key) {
+    let allTasks = getAllTasks();
+    let generalProjectKey = 1;
+    for (let i in allTasks) {
+        if (allTasks[i].project === key) {
+            allTasks[i].project = generalProjectKey;
+        }
+    }
+    //TODO --> Promt the User in domCreator that the tasks will be resetted to the "General" project
+    _setAllTasks(allTasks);
+};
+
 const addTask = function (taskObj) {
     const allTasks = getAllTasks();
     const id = _assignUniqueID("tasks", allTasks);
     allTasks[id] = taskObj;
-    setAllTasks(allTasks);
+    _setAllTasks(allTasks);
 };
 
 const addProject = function (name) {
@@ -89,13 +91,25 @@ const addProject = function (name) {
 const deleteTask = function (key) {
     let allTasks = getAllTasks();
     delete allTasks[key];
-    setAllTasks(allTasks);
+    _setAllTasks(allTasks);
 };
 
 const deleteProject = function (key) {
     let allProjects = getAllProjects();
-    dataStructurer.removeProjectFromTasks(key);
+    removeProjectFromTasks(key);
     delete allProjects[key];
+    _setAllProjects(allProjects);
+};
+
+const editTask = function (key, taskObj) {
+    let allTasks = getAllTasks();
+    allTasks[key] = taskObj;
+    _setAllTasks(allTasks);
+};
+
+const editProject = function (key, projectName) {
+    let allProjects = getAllProjects();
+    allProjects[key] = projectName;
     _setAllProjects(allProjects);
 };
 
@@ -104,9 +118,11 @@ export default {
     // _save,
     getAllTasks,
     getAllProjects,
-    setAllTasks,
+    _setAllTasks,
     addTask,
     addProject,
     deleteTask,
     deleteProject,
+    editTask,
+    editProject,
 };
