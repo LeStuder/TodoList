@@ -8,12 +8,12 @@ const coordinateInitialLoad = function () {
 
     //TODO --> Later on use a coodinator function that updates the ProjectsSidebar
     for (let i in allProjects) {
-        let project = domCreator.createProject(allProjects[i]);
+        let project = domCreator.createProject(i, allProjects[i]);
         domCreator.drawToProjectSidebar(project);
     }
 
     for (let i in allTasks) {
-        const taskElem = domCreator.createTaskElement(allTasks[i]);
+        const taskElem = domCreator.createTaskElement(i, allTasks[i]);
         const divider = domCreator.createDividerElement();
         domCreator.drawToTasklist(taskElem);
         domCreator.drawToTasklist(divider);

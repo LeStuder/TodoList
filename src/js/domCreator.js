@@ -19,10 +19,10 @@ const drawToProjectSidebar = function (domElement) {
 };
 
 //returns a domElement based on the project-name string given as parameter
-const createProject = function (project) {
+const createProject = function (key, project) {
     let button = document.createElement("button");
     button.type = "button";
-    button.value = project;
+    button.value = key;
     button.classList.add("btn", "btn-light", "sidebar-btn");
 
     //TODO --> add event listener
@@ -48,14 +48,14 @@ const createProject = function (project) {
 };
 
 //returns a domElement based on the task object given as parameter
-const createTaskElement = function (task) {
+const createTaskElement = function (key, task) {
     let mediaContainer = document.createElement("div");
     mediaContainer.classList.add("media", "d-flex");
 
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.id = `checkbox-${task.id}`;
-    checkbox.value = task.id; //TODO --> make sure to use something else than task.id
+    checkbox.id = `checkbox-${key}`;
+    checkbox.value = key;
     checkbox.classList.add("form-check-input", "align-self-start", "mt-2");
 
     //TODO --> event listener when checkbox is checked or unchecked
@@ -75,8 +75,8 @@ const createTaskElement = function (task) {
 
     let editButton = document.createElement("button");
     editButton.type = "button";
-    editButton.id = `edit-button-${task.id}`;
-    editButton.value = task.id;
+    editButton.id = `edit-button-${key}`;
+    editButton.value = key;
     editButton.classList.add("btn", "btn-light");
 
     //TODO --> event listener when edit-button is clicked
@@ -127,9 +127,10 @@ const createNewTaskButtonElement = function () {
     return container;
 };
 
+//create domElement that can be used to add or edit a new task in the tasklist or be displayed in a modal
 const createTaskInputElement = function (
-    taskObj = { title: "", description: "", project: "", date: "", id: Math.random(), done: false }
-    //TODO --> replace Math.random with incrementer-function
+    taskObj = { title: "", description: "", project: "", date: "", done: false },
+    key = null
 ) {
     const createInputGroup = function (label, inputElement) {
         let inputGroup = document.createElement("div");
@@ -184,6 +185,7 @@ const createTaskInputElement = function (
     let saveButton = document.createElement("button");
     saveButton.type = "button";
     saveButton.textContent = "Save";
+    saveButton.value = key;
     saveButton.classList.add("btn", "btn-primary", "btn-block");
     saveButtonRow.appendChild(saveButton);
     saveButtonContainer.appendChild(saveButtonRow);

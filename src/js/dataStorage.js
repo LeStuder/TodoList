@@ -109,6 +109,4 @@ export default {
     addProject,
     deleteTask,
     deleteProject,
-    editTask,
-    editProject,
 };
