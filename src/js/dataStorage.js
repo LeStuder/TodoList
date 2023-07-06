@@ -1,6 +1,6 @@
 import dataStructurer from "./dataStructurer";
 
-const _load = function (id) {
+const _loadLocalStorage = function (id) {
     const obj = localStorage.getItem(id);
 
     if (obj === null) {
@@ -10,8 +10,17 @@ const _load = function (id) {
     }
 };
 
-const _save = function (id, dataObj) {
+const _saveLocalStorage = function (id, dataObj) {
     localStorage.setItem(id, JSON.stringify(dataObj));
+};
+
+const loadSessionStorage = function (id) {
+    const obj = sessionStorage.getItem(id);
+    return JSON.parse(obj);
+};
+
+const saveSessionStorage = function (id, dataObj) {
+    sessionStorage.setItem(id, JSON.stringify(dataObj));
 };
 
 const _assignUniqueID = function (type, obj) {
@@ -35,27 +44,27 @@ const _assignUniqueID = function (type, obj) {
 };
 
 const getAllTasks = function () {
-    return _load("tasks");
+    return _loadLocalStorage("tasks");
 };
 
 const getAllProjects = function () {
-    return _load("projects");
+    return _loadLocalStorage("projects");
 };
 
 const _getAllParameters = function () {
-    return _load("parameters");
+    return _loadLocalStorage("parameters");
 };
 
 const _setAllTasks = function (allTasks) {
-    _save("tasks", allTasks);
+    _saveLocalStorage("tasks", allTasks);
 };
 
 const _setAllProjects = function (allProjects) {
-    _save("projects", allProjects);
+    _saveLocalStorage("projects", allProjects);
 };
 
 const _setAllParameters = function (allParameters) {
-    _save("parameters", allParameters);
+    _saveLocalStorage("parameters", allParameters);
 };
 
 const removeProjectFromTasks = function (id) {
@@ -122,8 +131,10 @@ const setTaskStatus = function (id, done) {
 };
 
 export default {
-    // _load,
-    // _save,
+    // _loadLocalStorage,
+    // _saveLocalStorage,
+    loadSessionStorage,
+    saveSessionStorage,
     getAllTasks,
     getAllProjects,
     addTask,

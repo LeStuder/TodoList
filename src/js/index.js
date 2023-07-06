@@ -47,14 +47,14 @@ const testDataSetup = function () {
         title: "task one",
         description: "description of task one",
         project: 2,
-        date: "2000-01-01",
+        date: "2000-01-02",
         done: false,
     });
     dataStorage.addTask({
         title: "task two",
         description: "description of task two",
         project: 3,
-        date: "2000-03-03",
+        date: "2003-04-05",
         done: false,
     });
 };

@@ -10,6 +10,11 @@ const makeKebabCase = function (input) {
         .toLowerCase();
 };
 
+const formatDateString = function (date) {
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+};
+
 export default {
     makeKebabCase,
+    formatDateString,
 };

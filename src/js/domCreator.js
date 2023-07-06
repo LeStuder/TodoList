@@ -7,6 +7,7 @@ drawNewTaskModal
 import dataStorage from "./dataStorage";
 import eventCoordinator from "./eventCoordinator";
 import dataStructurer from "./dataStructurer";
+import utility from "./utility";
 
 //Add domElement to the Tasklist
 const drawToTasklist = function (domElement) {
@@ -15,28 +16,20 @@ const drawToTasklist = function (domElement) {
 };
 
 //add domElement to the Project Panel in the Sidebar
-const drawToProjectSidebar = function (domElement) {
+const drawToProjectlist = function (domElement) {
     let projectsSidebarContainer = document.getElementById("projects-sidebar-container");
     projectsSidebarContainer.appendChild(domElement);
+};
+
+const drawToViewlist = function (domElement) {
+    let viewsSidebarContainer = document.getElementById("views-sidebar-container");
+    viewsSidebarContainer.appendChild(domElement);
 };
 
 const clearTasklist = function () {
     let tasksContainer = document.getElementById("tasks-container");
     while (tasksContainer.firstChild) {
         tasksContainer.removeChild(tasksContainer.lastChild);
-    }
-};
-
-const drawNewTaskButtonToTasklist = function () {
-    const newTaskButton = createNewTaskButtonTasklistElement();
-    drawToTasklist(newTaskButton);
-};
-
-const drawAllProjectsToSidebar = function () {
-    let allProjects = dataStorage.getAllProjects();
-    for (let i in allProjects) {
-        let project = createProject(i, allProjects[i]);
-        drawToProjectSidebar(project);
     }
 };
 
@@ -50,8 +43,82 @@ const drawVisibleTasksToTasklist = function () {
     }
 };
 
+const drawNewTaskButtonToTasklist = function () {
+    const newTaskButton = createNewTaskButtonTasklistElement();
+    drawToTasklist(newTaskButton);
+};
+
+const drawAllProjectsToSidebar = function () {
+    let allProjects = dataStorage.getAllProjects();
+    for (let i in allProjects) {
+        let project = createProjectElement(i, allProjects[i]);
+        drawToProjectlist(project);
+    }
+};
+
+const drawAllViewsToSidebar = function () {
+    const allViews = dataStructurer.createViewsCollection();
+
+    //TODO --> Save Views to sessionStorage, probably better do that in the coordinateInitialLoad()
+
+    for (let i in allViews) {
+        const viewELement = createViewElement(i, allViews[i].viewName, allViews[i].iconElem);
+        drawToViewlist(viewELement);
+    }
+};
+
+const createViewElement = function (viewID, viewName, iconElem) {
+    const viewNameKebabCase = utility.makeKebabCase(viewName);
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.id = `view-button-${viewNameKebabCase}`;
+    button.value = viewID;
+    button.classList.add("btn", "btn-light", "sidebar-btn");
+
+    const row = document.createElement("div");
+    row.classList.add("row");
+
+    const iconContainer = document.createElement("div");
+    iconContainer.classList.add("col-2");
+
+    const textContainer = document.createElement("div");
+    textContainer.classList.add("col-10");
+    textContainer.textContent = viewName;
+
+    iconContainer.innerHTML = iconElem;
+    row.appendChild(iconContainer);
+    row.appendChild(textContainer);
+    button.appendChild(row);
+
+    return button;
+};
+
+const indicateCurrentView = function () {
+    const currentViewID = dataStorage.loadSessionStorage("currentView");
+
+    if (currentViewID === null) {
+        currentViewID = 1;
+    }
+
+    const allViews = dataStorage.loadSessionStorage("allViews");
+    const currentViewName = allViews[currentViewID].viewName;
+
+    const viewButtons = document.getElementById("views-sidebar-container").children;
+    for (let i = 0; i < viewButtons.length; i++) {
+        if (viewButtons[i].value == currentViewID) {
+            viewButtons[i].classList.add("active");
+        } else {
+            viewButtons[i].classList.remove("active");
+        }
+    }
+
+    const currentViewTextElement = document.getElementById("current-view-text");
+    currentViewTextElement.textContent = `${currentViewName} Tasks`;
+};
+
 //returns a domElement based on the project-name string given as parameter
-const createProject = function (id, projectName) {
+const createProjectElement = function (id, projectName) {
     let button = document.createElement("button");
     button.type = "button";
     button.value = id;
@@ -254,12 +321,15 @@ const createTaskInputElement = function (
 
 export default {
     drawToTasklist,
-    drawToProjectSidebar,
+    drawToProjectlist,
     drawNewTaskButtonToTasklist,
     drawAllProjectsToSidebar,
     drawVisibleTasksToTasklist,
+    drawAllViewsToSidebar,
+    createViewElement,
     clearTasklist,
-    createProject,
+    indicateCurrentView,
+    createProjectElement,
     createTaskElement,
     createNewTaskButtonTasklistElement,
     createDividerElement,
