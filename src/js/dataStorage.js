@@ -77,13 +77,13 @@ const addTask = function (taskObj) {
     _setAllTasks(allTasks);
 };
 
-const addProject = function (name) {
+const addProject = function (projectName) {
     const allProjects = getAllProjects();
     const id = _assignUniqueID("projects", allProjects);
-    if (Object.values(allProjects).some((elem) => elem === name)) {
+    if (Object.values(allProjects).some((elem) => elem === projectName)) {
         console.log("Project already exists");
     } else {
-        allProjects[id] = name;
+        allProjects[id] = projectName;
         _setAllProjects(allProjects);
     }
 };

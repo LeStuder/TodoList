@@ -19,8 +19,15 @@ const drawToProjectSidebar = function (domElement) {
     projectsSidebarContainer.appendChild(domElement);
 };
 
+const clearTasklist = function () {
+    let tasksContainer = document.getElementById("tasks-container");
+    while (tasksContainer.firstChild) {
+        tasksContainer.removeChild(tasksContainer.lastChild);
+    }
+};
+
 //returns a domElement based on the project-name string given as parameter
-const createProject = function (key, project) {
+const createProject = function (key, projectName) {
     let button = document.createElement("button");
     button.type = "button";
     button.value = key;
@@ -39,7 +46,7 @@ const createProject = function (key, project) {
 
     let textContainer = document.createElement("div");
     textContainer.classList.add("col-auto");
-    textContainer.textContent = project;
+    textContainer.textContent = projectName;
 
     iconContainer.appendChild(icon);
     rowContainer.appendChild(iconContainer);
@@ -132,7 +139,7 @@ const createNewTaskButtonTasklistElement = function () {
 
 //create domElement that can be used to add or edit a new task in the tasklist or be displayed in a modal
 const createTaskInputElement = function (
-    taskObj = { title: "", description: "", project: "", date: "", done: false },
+    taskObj = { title: "", description: "", projectKey: "", date: "", done: false },
     key = null
 ) {
     const createInputGroup = function (label, inputElement) {
@@ -149,6 +156,11 @@ const createTaskInputElement = function (
         return inputGroup;
     };
 
+    let form = document.createElement("form");
+    form.id = "task-input-form";
+    form.classList.add("needs-validation");
+    form.setAttribute("novalidate", "true");
+
     let taskInputContainer = document.createElement("div");
     taskInputContainer.id = "task-input-container";
     taskInputContainer.classList.add("container-fluid");
@@ -156,11 +168,14 @@ const createTaskInputElement = function (
     let inputTitle = document.createElement("input");
     inputTitle.type = "text";
     inputTitle.value = taskObj.title;
+    inputTitle.id = "inputTitle";
     inputTitle.classList.add("form-control");
+    inputTitle.required = true;
 
     let inputDescription = document.createElement("textarea");
     inputDescription.rows = "4";
     inputDescription.value = taskObj.description;
+    inputDescription.id = "inputDescription";
     inputDescription.classList.add("form-control");
 
     let inputProject = document.createElement("select");
@@ -172,11 +187,13 @@ const createTaskInputElement = function (
         option.value = i;
         inputProject.appendChild(option);
     }
-    inputProject.value = taskObj.project;
+    inputProject.value = taskObj.projectKey;
+    inputProject.id = "inputProject";
 
     let inputDate = document.createElement("input");
     inputDate.type = "date";
     inputDate.value = taskObj.date;
+    inputDate.id = "inputDate";
     inputDate.classList.add("form-control");
 
     let saveButtonContainer = document.createElement("div");
@@ -190,6 +207,10 @@ const createTaskInputElement = function (
     saveButton.textContent = "Save";
     saveButton.value = key;
     saveButton.classList.add("btn", "btn-primary", "btn-block");
+    saveButton.addEventListener("click", () => {
+        eventCoordinator.clickSaveButton(key, taskObj.done);
+    });
+
     saveButtonRow.appendChild(saveButton);
     saveButtonContainer.appendChild(saveButtonRow);
 
@@ -198,13 +219,15 @@ const createTaskInputElement = function (
     taskInputContainer.appendChild(createInputGroup("Project", inputProject));
     taskInputContainer.appendChild(createInputGroup("Due Date", inputDate));
     taskInputContainer.appendChild(saveButtonContainer);
+    form.appendChild(taskInputContainer);
 
-    return taskInputContainer;
+    return form;
 };
 
 export default {
     drawToTasklist,
     drawToProjectSidebar,
+    clearTasklist,
     createProject,
     createTaskElement,
     createNewTaskButtonTasklistElement,
