@@ -1,7 +1,7 @@
 import dataStructurer from "./dataStructurer";
 
-const _load = function (key) {
-    const obj = localStorage.getItem(key);
+const _load = function (id) {
+    const obj = localStorage.getItem(id);
 
     if (obj === null) {
         return {};
@@ -10,28 +10,28 @@ const _load = function (key) {
     }
 };
 
-const _save = function (key, dataObj) {
-    localStorage.setItem(key, JSON.stringify(dataObj));
+const _save = function (id, dataObj) {
+    localStorage.setItem(id, JSON.stringify(dataObj));
 };
 
 const _assignUniqueID = function (type, obj) {
     let allParameters = _getAllParameters();
-    if (!allParameters.lastUsedKey) {
-        allParameters.lastUsedKey = {};
+    if (!allParameters.lastUsedID) {
+        allParameters.lastUsedID = {};
     }
-    if (!allParameters.lastUsedKey[type]) {
-        allParameters.lastUsedKey[type] = 0;
+    if (!allParameters.lastUsedID[type]) {
+        allParameters.lastUsedID[type] = 0;
     }
-    let newKey = null;
-    const allKeys = Object.keys(obj);
-    let lastUsedKey = allParameters.lastUsedKey[type];
-    if (Number.isInteger(allKeys[allKeys.length - 1])) {
-        lastUsedKey = Math.max(parseInt(allKeys[allKeys.length - 1]), allParameters.lastUsedKey[type]);
+    let newID = null;
+    const allIDs = Object.keys(obj);
+    let lastUsedID = allParameters.lastUsedID[type];
+    if (Number.isInteger(allIDs[allIDs.length - 1])) {
+        lastUsedID = Math.max(parseInt(allIDs[allIDs.length - 1]), allParameters.lastUsedID[type]);
     }
-    newKey = lastUsedKey + 1;
-    allParameters.lastUsedKey[type] = newKey;
+    newID = lastUsedID + 1;
+    allParameters.lastUsedID[type] = newID;
     _setAllParameters(allParameters);
-    return newKey;
+    return newID;
 };
 
 const getAllTasks = function () {
@@ -58,12 +58,12 @@ const _setAllParameters = function (allParameters) {
     _save("parameters", allParameters);
 };
 
-const removeProjectFromTasks = function (key) {
+const removeProjectFromTasks = function (id) {
     let allTasks = getAllTasks();
-    let generalProjectKey = 1;
+    let generalProjectID = 1;
     for (let i in allTasks) {
-        if (allTasks[i].project === key) {
-            allTasks[i].project = generalProjectKey;
+        if (allTasks[i].project === id) {
+            allTasks[i].project = generalProjectID;
         }
     }
     //TODO --> Promt the User in domCreator that the tasks will be resetted to the "General" project
@@ -88,36 +88,36 @@ const addProject = function (projectName) {
     }
 };
 
-const deleteTask = function (key) {
+const deleteTask = function (id) {
     let allTasks = getAllTasks();
-    delete allTasks[key];
+    delete allTasks[id];
     _setAllTasks(allTasks);
 };
 
-const deleteProject = function (key) {
+const deleteProject = function (id) {
     let allProjects = getAllProjects();
-    removeProjectFromTasks(key);
-    delete allProjects[key];
+    removeProjectFromTasks(id);
+    delete allProjects[id];
     _setAllProjects(allProjects);
 };
 
-const editTask = function (key, taskObj) {
+const editTask = function (id, taskObj) {
     let allTasks = getAllTasks();
-    allTasks[key] = taskObj;
+    allTasks[id] = taskObj;
     _setAllTasks(allTasks);
 };
 
-const editProject = function (key, projectName) {
+const editProject = function (id, projectName) {
     let allProjects = getAllProjects();
-    allProjects[key] = projectName;
+    allProjects[id] = projectName;
     _setAllProjects(allProjects);
 };
 
-const setTaskStatus = function (key, done) {
+const setTaskStatus = function (id, done) {
     const allTasks = getAllTasks();
-    const task = allTasks[key];
+    const task = allTasks[id];
     task.done = done;
-    allTasks[key] = task;
+    allTasks[id] = task;
     _setAllTasks(allTasks);
 };
 

@@ -27,10 +27,10 @@ const clearTasklist = function () {
 };
 
 //returns a domElement based on the project-name string given as parameter
-const createProject = function (key, projectName) {
+const createProject = function (id, projectName) {
     let button = document.createElement("button");
     button.type = "button";
-    button.value = key;
+    button.value = id;
     button.classList.add("btn", "btn-light", "sidebar-btn");
 
     //TODO --> add event listener
@@ -56,14 +56,14 @@ const createProject = function (key, projectName) {
 };
 
 //returns a domElement based on the task object given as parameter
-const createTaskElement = function (key, taskObj) {
+const createTaskElement = function (id, taskObj) {
     let mediaContainer = document.createElement("div");
     mediaContainer.classList.add("media", "d-flex");
 
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.id = `checkbox-${key}`;
-    checkbox.value = key;
+    checkbox.id = `checkbox-${id}`;
+    checkbox.value = id;
     checkbox.checked = taskObj.done;
     checkbox.classList.add("form-check-input", "align-self-start", "mt-2");
     checkbox.addEventListener("click", (event) => {
@@ -87,8 +87,8 @@ const createTaskElement = function (key, taskObj) {
 
     let editButton = document.createElement("button");
     editButton.type = "button";
-    editButton.id = `edit-button-${key}`;
-    editButton.value = key;
+    editButton.id = `edit-button-${id}`;
+    editButton.value = id;
     editButton.classList.add("btn", "btn-light");
 
     //TODO --> event listener when edit-button is clicked
@@ -143,8 +143,8 @@ const createNewTaskButtonTasklistElement = function () {
 
 //create domElement that can be used to add or edit a new task in the tasklist or be displayed in a modal
 const createTaskInputElement = function (
-    taskObj = { title: "", description: "", projectKey: "", date: "", done: false },
-    key = null
+    taskObj = { title: "", description: "", projectID: "", date: "", done: false },
+    id = null
 ) {
     const createInputGroup = function (label, inputElement) {
         let inputGroup = document.createElement("div");
@@ -191,7 +191,7 @@ const createTaskInputElement = function (
         option.value = i;
         inputProject.appendChild(option);
     }
-    inputProject.value = taskObj.projectKey;
+    inputProject.value = taskObj.projectID;
     inputProject.id = "inputProject";
 
     let inputDate = document.createElement("input");
@@ -209,10 +209,10 @@ const createTaskInputElement = function (
     let saveButton = document.createElement("button");
     saveButton.type = "button";
     saveButton.textContent = "Save";
-    saveButton.value = key;
+    saveButton.value = id;
     saveButton.classList.add("btn", "btn-primary", "btn-block");
     saveButton.addEventListener("click", () => {
-        eventCoordinator.clickSaveButton(key, taskObj.done);
+        eventCoordinator.clickSaveButton(id, taskObj.done);
     });
 
     saveButtonRow.appendChild(saveButton);
