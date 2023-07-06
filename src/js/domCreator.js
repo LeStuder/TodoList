@@ -56,7 +56,7 @@ const createProject = function (key, projectName) {
 };
 
 //returns a domElement based on the task object given as parameter
-const createTaskElement = function (key, task) {
+const createTaskElement = function (key, taskObj) {
     let mediaContainer = document.createElement("div");
     mediaContainer.classList.add("media", "d-flex");
 
@@ -64,7 +64,11 @@ const createTaskElement = function (key, task) {
     checkbox.type = "checkbox";
     checkbox.id = `checkbox-${key}`;
     checkbox.value = key;
+    checkbox.checked = taskObj.done;
     checkbox.classList.add("form-check-input", "align-self-start", "mt-2");
+    checkbox.addEventListener("click", (event) => {
+        eventCoordinator.clickTaskCheckbox(event);
+    });
 
     //TODO --> event listener when checkbox is checked or unchecked
 
@@ -74,10 +78,10 @@ const createTaskElement = function (key, task) {
     let textBody = document.createElement("div");
 
     let title = document.createElement("h4");
-    title.textContent = task.title;
+    title.textContent = taskObj.title;
 
     let description = document.createElement("div");
-    description.textContent = task.description;
+    description.textContent = taskObj.description;
 
     let buttonContainer = document.createElement("div");
 

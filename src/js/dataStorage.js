@@ -113,16 +113,24 @@ const editProject = function (key, projectName) {
     _setAllProjects(allProjects);
 };
 
+const setTaskStatus = function (key, done) {
+    const allTasks = getAllTasks();
+    const task = allTasks[key];
+    task.done = done;
+    allTasks[key] = task;
+    _setAllTasks(allTasks);
+};
+
 export default {
     // _load,
     // _save,
     getAllTasks,
     getAllProjects,
-    _setAllTasks,
     addTask,
     addProject,
     deleteTask,
     deleteProject,
     editTask,
     editProject,
+    setTaskStatus,
 };

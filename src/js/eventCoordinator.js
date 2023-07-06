@@ -51,4 +51,10 @@ const clickSaveButton = function (key, done) {
     }
 };
 
-export default { clickNewTaskButtonTasklistElement, clickSaveButton };
+const clickTaskCheckbox = function (event) {
+    const taskID = event.target.value;
+    const status = event.target.checked;
+    dataStorage.setTaskStatus(taskID, status);
+};
+
+export default { clickNewTaskButtonTasklistElement, clickSaveButton, clickTaskCheckbox };
