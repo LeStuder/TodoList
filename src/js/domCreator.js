@@ -6,6 +6,7 @@ drawNewTaskModal
 
 import dataStorage from "./dataStorage";
 import eventCoordinator from "./eventCoordinator";
+import dataStructurer from "./dataStructurer";
 
 //Add domElement to the Tasklist
 const drawToTasklist = function (domElement) {
@@ -23,6 +24,29 @@ const clearTasklist = function () {
     let tasksContainer = document.getElementById("tasks-container");
     while (tasksContainer.firstChild) {
         tasksContainer.removeChild(tasksContainer.lastChild);
+    }
+};
+
+const drawNewTaskButtonToTasklist = function () {
+    const newTaskButton = createNewTaskButtonTasklistElement();
+    drawToTasklist(newTaskButton);
+};
+
+const drawAllProjectsToSidebar = function () {
+    let allProjects = dataStorage.getAllProjects();
+    for (let i in allProjects) {
+        let project = createProject(i, allProjects[i]);
+        drawToProjectSidebar(project);
+    }
+};
+
+const drawVisibleTasksToTasklist = function () {
+    let tasks = dataStructurer.getAllVisibleTasks();
+    for (let i in tasks) {
+        const taskElem = createTaskElement(i, tasks[i]);
+        const divider = createDividerElement();
+        drawToTasklist(taskElem);
+        drawToTasklist(divider);
     }
 };
 
@@ -231,6 +255,9 @@ const createTaskInputElement = function (
 export default {
     drawToTasklist,
     drawToProjectSidebar,
+    drawNewTaskButtonToTasklist,
+    drawAllProjectsToSidebar,
+    drawVisibleTasksToTasklist,
     clearTasklist,
     createProject,
     createTaskElement,

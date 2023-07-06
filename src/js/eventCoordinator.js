@@ -46,8 +46,7 @@ const clickSaveButton = function (id, done) {
             domCreator.drawToTasklist(taskElem);
             domCreator.drawToTasklist(divider);
         }
-        const newTaskButton = domCreator.createNewTaskButtonTasklistElement();
-        domCreator.drawToTasklist(newTaskButton);
+        domCreator.drawNewTaskButtonToTasklist();
     }
 };
 
